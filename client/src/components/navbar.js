@@ -2,8 +2,12 @@ import useIsAuthenticated from "react-auth-kit/hooks/useIsAuthenticated";
 import useAuthUser from 'react-auth-kit/hooks/useAuthUser'
 import useSignOut from 'react-auth-kit/hooks/useSignOut'
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 function NavBar() {
+    const [categories, allCategories] = useState([])
+
     const isAuthenticated = useIsAuthenticated();
     const user = useAuthUser()
     const signOut = useSignOut()
@@ -13,6 +17,20 @@ function NavBar() {
         signOut()
         navigate('/')
     }
+
+    const getCategories = async () => {
+        await axios.get('https://dummyjson.com/products/categories')
+            .then(data => {
+                const categoryList = data.data
+                categoryList.map(category => {
+                    allCategories(categories => [...categories, category])
+                })
+            })
+    }
+
+    useEffect(() => {
+        getCategories()
+    }, [])
 
     return (
         <nav class="navbar navbar-expand-lg bg-dark border-bottom border-body"  data-bs-theme="dark">
@@ -31,8 +49,13 @@ function NavBar() {
                             Categories
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Action</a></li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                            {
+                                categories.map((category, index) => {
+                                    return (
+                                        <li><a class="dropdown-item" href={index + 1}>{ category.name }</a></li>
+                                    )
+                                })
+                            }
                         </ul>
                         </li>
                     </ul>

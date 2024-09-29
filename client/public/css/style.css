@@ -2,3 +2,10 @@
     width: 500px;
     margin-top: 50px;
 }
+
+.main-holder {
+    width: 700px;
+    height: 200px;
+    margin-top: 50px;
+    background-color:bisque;
+}
