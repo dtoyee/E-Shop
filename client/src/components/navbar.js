@@ -1,4 +1,11 @@
+import useIsAuthenticated from "react-auth-kit/hooks/useIsAuthenticated";
+import useAuthUser from 'react-auth-kit/hooks/useAuthUser'
+import { useEffect } from "react";
+
 function NavBar() {
+    const isAuthenticated = useIsAuthenticated();
+    const user = useAuthUser()
+
     return (
         <nav class="navbar navbar-expand-lg bg-dark border-bottom border-body"  data-bs-theme="dark">
             <div class="container">
@@ -18,29 +25,34 @@ function NavBar() {
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="#">Action</a></li>
                             <li><a class="dropdown-item" href="#">Another action</a></li>
-                            <li><hr class="dropdown-divider" /></li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
                         </ul>
                         </li>
                     </ul>
                     <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="/login">Login</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="/register">Register</a>
-                        </li>
-                        {/* <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Categories
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">Action</a></li>
-                                <li><a class="dropdown-item" href="#">Another action</a></li>
-                                <li><hr class="dropdown-divider" /></li>
-                                <li><a class="dropdown-item" href="#">Something else here</a></li>
-                            </ul>
-                        </li> */}
+                        {
+                            (!isAuthenticated) ?
+                                <>
+                                    <li class="nav-item">
+                                        <a class="nav-link" aria-current="page" href="/login">Login</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" aria-current="page" href="/register">Register</a>
+                                    </li>
+                                </> :
+                                <>
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            { user.email }
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item" href="#">Action</a></li>
+                                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                                            <li><hr class="dropdown-divider" /></li>
+                                            <li><a class="dropdown-item" href="">Logout</a></li>
+                                        </ul>
+                                    </li>
+                                </>
+                        }
                     </ul>
                 </div>
             </div>
