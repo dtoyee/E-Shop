@@ -1,10 +1,18 @@
 import useIsAuthenticated from "react-auth-kit/hooks/useIsAuthenticated";
 import useAuthUser from 'react-auth-kit/hooks/useAuthUser'
-import { useEffect } from "react";
+import useSignOut from 'react-auth-kit/hooks/useSignOut'
+import { useNavigate } from "react-router-dom";
 
 function NavBar() {
     const isAuthenticated = useIsAuthenticated();
     const user = useAuthUser()
+    const signOut = useSignOut()
+    const navigate = useNavigate()
+
+    const logout = () => {
+        signOut()
+        navigate('/')
+    }
 
     return (
         <nav class="navbar navbar-expand-lg bg-dark border-bottom border-body"  data-bs-theme="dark">
@@ -48,7 +56,7 @@ function NavBar() {
                                             <li><a class="dropdown-item" href="#">Action</a></li>
                                             <li><a class="dropdown-item" href="#">Another action</a></li>
                                             <li><hr class="dropdown-divider" /></li>
-                                            <li><a class="dropdown-item" href="">Logout</a></li>
+                                            <li><a class="dropdown-item" href="" onClick={logout}>Logout</a></li>
                                         </ul>
                                     </li>
                                 </>
