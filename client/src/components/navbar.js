@@ -52,7 +52,7 @@ function NavBar() {
                             {
                                 categories.map(category => {
                                     return (
-                                        <li><a class="dropdown-item" href={"category/"+category.slug}>{ category.name }</a></li>
+                                        <li><a class="dropdown-item" href={"/category/"+category.slug}>{ category.name }</a></li>
                                     )
                                 })
                             }
