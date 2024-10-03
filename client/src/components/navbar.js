@@ -50,9 +50,9 @@ function NavBar() {
                         </a>
                         <ul class="dropdown-menu">
                             {
-                                categories.map((category, index) => {
+                                categories.map(category => {
                                     return (
-                                        <li><a class="dropdown-item" href={index + 1}>{ category.name }</a></li>
+                                        <li><a class="dropdown-item" href={"category/"+category.slug}>{ category.name }</a></li>
                                     )
                                 })
                             }
@@ -64,6 +64,9 @@ function NavBar() {
                             (!isAuthenticated) ?
                                 <>
                                     <li class="nav-item">
+                                        <a class="nav-link" aria-current="page" href="/">Basket</a>
+                                    </li>
+                                    <li class="nav-item">
                                         <a class="nav-link" aria-current="page" href="/login">Login</a>
                                     </li>
                                     <li class="nav-item">
@@ -71,13 +74,16 @@ function NavBar() {
                                     </li>
                                 </> :
                                 <>
+                                    <li class="nav-item">
+                                        <a class="nav-link" aria-current="page" href="/">Basket</a>
+                                    </li>
                                     <li class="nav-item dropdown">
                                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                             { user.email }
                                         </a>
                                         <ul class="dropdown-menu">
-                                            <li><a class="dropdown-item" href="#">Action</a></li>
-                                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                                            <li><a class="dropdown-item" href="#">Order History</a></li>
+                                            <li><a class="dropdown-item" href="#">Settings</a></li>
                                             <li><hr class="dropdown-divider" /></li>
                                             <li><a class="dropdown-item" href="" onClick={logout}>Logout</a></li>
                                         </ul>
