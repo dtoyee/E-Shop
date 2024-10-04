@@ -25,7 +25,6 @@ app.post("/api/register-user", async (req, res) => {
 })
 
 app.post("/api/login-user", async (req, res) => {
-    console.log(req.body)
     let email = req.body.email
     let password = req.body.password
     let foundUser = await checkIfUserDetailExists("email", email)

@@ -6,8 +6,9 @@ function ProductCard({ product }) {
                     <img src={prod.images} class="card-img-top" alt="..." height={200} />
                     <div class="card-body">
                         <h5 class="card-title">
-                            <a href={"/"+prod.id+"/"+prod.title.replaceAll(" ","-")}>{ prod.title }</a>
+                            <a href={"/product/"+prod.id+"/"+prod.title.replaceAll(" ","-")}>{ prod.title }</a>
                         </h5>
+                        <p>£{prod.price}</p>
                         <a href="#" class="btn btn-success">Add To Basket</a>
                     </div>
                 </div>
