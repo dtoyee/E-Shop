@@ -64,7 +64,7 @@ function NavBar() {
                             (!isAuthenticated) ?
                                 <>
                                     <li class="nav-item">
-                                        <a class="nav-link" aria-current="page" href="/">Basket</a>
+                                        <a class="nav-link" aria-current="page" href="/cart">Basket</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" aria-current="page" href="/login">Login</a>
@@ -75,7 +75,7 @@ function NavBar() {
                                 </> :
                                 <>
                                     <li class="nav-item">
-                                        <a class="nav-link" aria-current="page" href="/">Basket</a>
+                                        <a class="nav-link" aria-current="page" href="/cart">Basket</a>
                                     </li>
                                     <li class="nav-item dropdown">
                                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">

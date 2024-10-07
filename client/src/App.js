@@ -6,6 +6,7 @@ import AuthProvider from 'react-auth-kit'
 import Home from './pages/Home';
 import Category from './pages/Category';
 import Product from './pages/Product';
+import Cart from './pages/Cart';
 
 function App() {
   const store = createStore({
@@ -24,6 +25,7 @@ function App() {
           <Route path='/register' element={<Register />} />
           <Route path='/category/:category' element={<Category />} />
           <Route path='/product/:id/:product' element={<Product />} />
+          <Route path='/cart' element={<Cart />} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>
