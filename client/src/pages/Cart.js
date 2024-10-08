@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import NavBar from "../components/navbar";
+import useIsAuthenticated from 'react-auth-kit/hooks/useIsAuthenticated'
 
 function Cart() {
   const [cartProducts, setCartProducts] = useState([]);
   const [subTotal, setSubTotal] = useState(0);
+  const isAuthenticated = useIsAuthenticated()
 
   const getItems = () => {
     let cart = JSON.parse(localStorage.getItem("cart"));
@@ -37,6 +39,10 @@ function Cart() {
     setCartProducts(newCart)
     localStorage.setItem('cart', JSON.stringify(newCart))
     getItems()
+  }
+
+  const checkOut = () => {
+    
   }
 
   useEffect(() => {
@@ -88,7 +94,11 @@ function Cart() {
                     Total: £{ subTotal.toFixed(2) }
                 </div>
                 <div className="col-2">
-                    <button className="btn btn-primary">Check Out</button>
+                    {
+                        (isAuthenticated) ? 
+                            <button className="btn btn-primary">Check Out</button>
+                        : ""
+                    }
                 </div>
             </div>
           </>

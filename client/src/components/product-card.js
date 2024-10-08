@@ -1,4 +1,44 @@
+import toast, { Toaster } from 'react-hot-toast';
+
 function ProductCard({ product }) {
+    const notify = () => toast.success('Added to basket');
+
+    const addToBasket = (product) => {
+        let cart = JSON.parse(localStorage.getItem('cart'))
+
+        if(cart) {
+            let isItemInCart = cart.find(item => item.product.id === product.id)
+            if(isItemInCart) {
+                cart = cart.map(item => {
+                    if(item.product.id === product.id) {
+                        return {
+                            ...item,
+                            quantity: item.quantity + 1
+                        }
+                    } else {
+                        return item
+                    }
+                })
+                localStorage.setItem('cart', JSON.stringify(cart))
+                notify()
+            } else {
+                cart = [...cart, {
+                    product,
+                    quantity: 1
+                }]
+                localStorage.setItem('cart', JSON.stringify(cart))
+                notify()
+            }
+        } else {
+            cart = [{
+                product,
+                quantity: 1
+            }]
+            localStorage.setItem('cart', JSON.stringify(cart));
+            notify()
+        }
+    }
+
     return (
         product.map(prod => {
             return (
@@ -9,7 +49,8 @@ function ProductCard({ product }) {
                             <a href={"/product/"+prod.id+"/"+prod.title.replaceAll(" ","-")}>{ prod.title }</a>
                         </h5>
                         <p>£{prod.price}</p>
-                        <a href="#" class="btn btn-success">Add To Basket</a>
+                        <button onClick={() => { addToBasket(prod) }} class="btn btn-success">Add To Basket</button>
+                        <Toaster />
                     </div>
                 </div>
             )
