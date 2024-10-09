@@ -28,3 +28,26 @@ export function addOrder(orderNumber, userId, product, quantity, total) {
     [orderNumber, userId, product, quantity, total]
   );
 }
+
+export async function getUserOrders(userId) {
+  const [rows] = await connection.query(
+    "SELECT "+
+      "o.order_id, "+
+      "u.email, "+
+      "o.product, "+
+      "SUM(o.quantity) AS 'Quantity', "+
+      "SUM(o.total) AS 'Total' "+
+    "FROM orders o "+
+    "INNER JOIN users u "+
+      "ON u.id = o.user_id "+
+    "WHERE o.user_id = " + userId + " "+
+    "GROUP BY o.order_id " +
+    "ORDER BY o.id DESC"
+  );
+  return rows;
+}
+
+export async function getOrder(orderId) {
+  const [rows] = await connection.query("SELECT * FROM orders WHERE order_id = '" + orderId+"'")
+  return rows
+}

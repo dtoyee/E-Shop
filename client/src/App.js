@@ -7,6 +7,8 @@ import Home from './pages/Home';
 import Category from './pages/Category';
 import Product from './pages/Product';
 import Cart from './pages/Cart';
+import Orders from './pages/Orders';
+import Order from './pages/Order';
 
 function App() {
   const store = createStore({
@@ -26,6 +28,8 @@ function App() {
           <Route path='/category/:category' element={<Category />} />
           <Route path='/product/:id/:product' element={<Product />} />
           <Route path='/cart' element={<Cart />} />
+          <Route path='/orders' element={<Orders />} />
+          <Route path='/orders/:id' element={<Order />} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>

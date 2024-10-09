@@ -138,12 +138,12 @@ function NavBar() {
                   </a>
                   <ul class="dropdown-menu">
                     <li>
-                      <a class="dropdown-item" href="#">
+                      <a class="dropdown-item" href="/orders/">
                         Order History
                       </a>
                     </li>
                     <li>
-                      <a class="dropdown-item" href="#">
+                      <a class="dropdown-item" href="/settings/">
                         Settings
                       </a>
                     </li>

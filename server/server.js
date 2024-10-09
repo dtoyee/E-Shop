@@ -1,7 +1,7 @@
 import express from 'express'
 import cors from 'cors'
 import bcrypt from 'bcrypt'
-import { addOrder, addUser, checkIfUserDetailExists } from './database.js'
+import { addOrder, addUser, checkIfUserDetailExists, getOrder, getUserOrders } from './database.js'
 import generateToken from './token.js'
 import { v4 as uuidv4 } from 'uuid'
 
@@ -57,4 +57,12 @@ app.post("/api/submit-order", (req, res) => {
     } else {
         res.send({ success: false })
     }
+})
+
+app.get("/api/orders", async (req, res) => {
+    res.send({ orders: await getUserOrders(req.query.user_id) })
+})
+
+app.get("/api/orders/get/", async (req, res) => {
+    res.send({ order: await getOrder(req.query.order_id) })
 })
