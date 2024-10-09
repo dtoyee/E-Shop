@@ -21,3 +21,10 @@ export function addUser(firstName, lastName, email, password) {
     [firstName, lastName, email, password]
   );
 }
+
+export function addOrder(orderNumber, userId, product, quantity, total) {
+  connection.query(
+    "INSERT INTO orders (order_id, user_id, product, quantity, total) VALUES(?,?,?,?,?)",
+    [orderNumber, userId, product, quantity, total]
+  );
+}

@@ -1,8 +1,9 @@
 import express from 'express'
 import cors from 'cors'
 import bcrypt from 'bcrypt'
-import { addUser, checkIfUserDetailExists } from './database.js'
+import { addOrder, addUser, checkIfUserDetailExists } from './database.js'
 import generateToken from './token.js'
+import { v4 as uuidv4 } from 'uuid'
 
 const app = express()
 
@@ -42,5 +43,18 @@ app.post("/api/login-user", async (req, res) => {
         }
     }  else {
         res.send({ success: false, message: "Incorrect details." })
+    }
+})
+
+app.post("/api/submit-order", (req, res) => {
+    const orderNumber = uuidv4().substring(0, 8)
+    let addOrderToDatabase = req.body.product.map(prod => {
+        addOrder(orderNumber, req.body.userId, prod.product.title, prod.quantity, req.body.orderTotal)
+    })
+
+    if(addOrderToDatabase) {
+        res.send({ success: true })
+    } else {
+        res.send({ success: false })
     }
 })

@@ -93,7 +93,11 @@ function NavBar() {
                   <a class="nav-link" aria-current="page" href="/cart">
                     Basket{" "}
                     <span class="badge text-bg-secondary">
-                      {JSON.parse(localStorage.getItem("cart")).length}
+                      {
+                        (localStorage.hasOwnProperty('cart')) ?
+                          JSON.parse(localStorage.getItem("cart")).length :
+                          ""
+                      }
                     </span>
                   </a>
                 </li>
@@ -114,7 +118,11 @@ function NavBar() {
                   <a class="nav-link" aria-current="page" href="/cart">
                     Basket{" "}
                     <span class="badge text-bg-secondary">
-                      {JSON.parse(localStorage.getItem("cart")).length}
+                      {
+                        (localStorage.hasOwnProperty('cart')) ?
+                          JSON.parse(localStorage.getItem("cart")).length :
+                          ""
+                      }
                     </span>
                   </a>
                 </li>

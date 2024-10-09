@@ -1,11 +1,17 @@
 import { useEffect, useState } from "react";
 import NavBar from "../components/navbar";
 import useIsAuthenticated from 'react-auth-kit/hooks/useIsAuthenticated'
+import useAuthUser from 'react-auth-kit/hooks/useAuthUser'
+import axios from "axios";
+import toast, { Toaster } from 'react-hot-toast';
 
 function Cart() {
   const [cartProducts, setCartProducts] = useState([]);
   const [subTotal, setSubTotal] = useState(0);
   const isAuthenticated = useIsAuthenticated()
+  const auth = useAuthUser()
+  const success = () => toast.success('Checkout complete!');
+  const error = () => toast.error('Error checking out.');
 
   const getItems = () => {
     let cart = JSON.parse(localStorage.getItem("cart"));
@@ -41,12 +47,34 @@ function Cart() {
     getItems()
   }
 
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+
   const checkOut = () => {
-    
+    let productData = JSON.stringify({
+        userId: auth.id,
+        product: cartProducts,
+        orderTotal: subTotal
+    })
+    axios.post("http://localhost:8000/api/submit-order", productData, config)
+        .then(result => {
+            if(result.data.success) {
+                localStorage.removeItem("cart")
+                setCartProducts([])
+                getItems()
+                success()
+            } else {
+                error()
+            }
+        })
   }
 
   useEffect(() => {
     getItems();
+    console.log(auth.id)
   }, []);
 
   return (
@@ -96,7 +124,7 @@ function Cart() {
                 <div className="col-2">
                     {
                         (isAuthenticated) ? 
-                            <button className="btn btn-primary">Check Out</button>
+                            <button className="btn btn-primary" onClick={checkOut}>Check Out</button>
                         : ""
                     }
                 </div>
@@ -106,6 +134,7 @@ function Cart() {
           "Your cart is empty"
         )}
       </div>
+      <Toaster />
     </>
   );
 }
