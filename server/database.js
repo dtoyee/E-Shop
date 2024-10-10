@@ -51,3 +51,7 @@ export async function getOrder(orderId) {
   const [rows] = await connection.query("SELECT * FROM orders WHERE order_id = '" + orderId+"'")
   return rows
 }
+
+export function changePassword(userId, password) {
+  return connection.query("UPDATE users SET password = '"+ password +"' WHERE id = '"+ userId +"'")
+}

@@ -36,7 +36,8 @@ function LoginForm() {
             },
             userState: { 
               id: result.user.id,
-              email: result.user.email
+              email: result.user.email,
+              role: result.user.role
             }
           })) {
             navigate("/")

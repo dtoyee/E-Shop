@@ -1,7 +1,7 @@
 import express from 'express'
 import cors from 'cors'
 import bcrypt from 'bcrypt'
-import { addOrder, addUser, checkIfUserDetailExists, getOrder, getUserOrders } from './database.js'
+import { addOrder, addUser, changePassword, checkIfUserDetailExists, getOrder, getUserOrders } from './database.js'
 import generateToken from './token.js'
 import { v4 as uuidv4 } from 'uuid'
 
@@ -34,7 +34,8 @@ app.post("/api/login-user", async (req, res) => {
         if(bcrypt.compareSync(password, foundUser[0].password)) {
             let userDetails = {
                 id: foundUser[0].id,
-                email: foundUser[0].email
+                email: foundUser[0].email,
+                role: foundUser[0].role
             }
             let token = generateToken(userDetails)
             res.send({ success: true, user: userDetails, token: token })
@@ -65,4 +66,14 @@ app.get("/api/orders", async (req, res) => {
 
 app.get("/api/orders/get/", async (req, res) => {
     res.send({ order: await getOrder(req.query.order_id) })
+})
+
+app.post("/api/change-password", (req, res) => {
+    let hashedPassword = bcrypt.hashSync(req.body.password, bcrypt.genSaltSync())
+    let passwordChange = changePassword(req.body.user_id, hashedPassword)
+    if(passwordChange) {
+        res.send({ success: true })
+    } else {
+        res.send({ success: false })
+    }
 })

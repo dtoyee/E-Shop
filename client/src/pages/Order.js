@@ -22,7 +22,6 @@ function Order() {
     }
 
     useEffect(() => {
-        console.log(params)
         if(!isAuthenticated) {
             navigate('/')
         } else {

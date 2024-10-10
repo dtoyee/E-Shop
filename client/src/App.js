@@ -9,6 +9,7 @@ import Product from './pages/Product';
 import Cart from './pages/Cart';
 import Orders from './pages/Orders';
 import Order from './pages/Order';
+import Settings from './pages/Settings';
 
 function App() {
   const store = createStore({
@@ -30,6 +31,7 @@ function App() {
           <Route path='/cart' element={<Cart />} />
           <Route path='/orders' element={<Orders />} />
           <Route path='/orders/:id' element={<Order />} />
+          <Route path='/settings' element={<Settings />} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>
